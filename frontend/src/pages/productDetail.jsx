@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cartSlice';
 import '../styles/product.css';
+import { API_BASE_URL } from '../config';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -17,9 +18,10 @@ const ProductDetail = () => {
       setProduct(null);
       setSelectedPhotoIndex(0);
       try {
-        const res = await fetch(`/api/products/${id}`);
-        if (!res.ok) throw new Error('Could not load product');
+        const res = await fetch(`${API_BASE_URL}/api/products`);
         const data = await res.json();
+        if (!res.ok) throw new Error('Could not load product');
+
         setProduct(data);
       } catch (error) {
         console.error(error);
@@ -60,7 +62,7 @@ const ProductDetail = () => {
 
   return (
     <div className="product-detail-wrapper">
-      
+
       {/* Breadcrumb Navigation */}
       <div style={{ color: '#a1a1aa', marginBottom: '20px', fontSize: '0.95rem' }}>
         <Link to="/" style={{ color: '#f97316' }}>Home</Link> / <Link to="/shop" style={{ color: '#f97316' }}>Shop</Link> / {product.category} / <span style={{ color: '#fff' }}>{product.name}</span>
@@ -116,7 +118,7 @@ const ProductDetail = () => {
           <button onClick={handleAddToCart} className="btn detail-cart-button">
             Add to Shopping Cart
           </button>
-          
+
           <p className={`detail-stock${product.stock > 0 ? ' in-stock' : ' out-of-stock'}`}>
             {product.stock > 0 ? `● In Stock (${product.stock} units available)` : `● Temporarily Out of Stock`}
           </p>
