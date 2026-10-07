@@ -1,5 +1,13 @@
 # React + Vite
 
+## Production
+
+Run `npm run build` in the `frontend` directory to create `frontend/dist`. Set
+`NODE_ENV=production` when starting the backend from `Backend`; it serves this
+build and the API from the same origin. The frontend uses same-origin API
+requests by default. Set `VITE_API_BASE_URL` before building only when the API
+is hosted on a different origin.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

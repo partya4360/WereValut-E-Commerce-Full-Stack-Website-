@@ -1,46 +1,52 @@
 const express = require('express');
+const path = require('path');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/auth');
-const products =require('./routes/product');
- const orders = require('./routes/orders');
- const payments = require('./routes/payment');
- const analyatics = require('./routes/analyatics');
+const products = require('./routes/product');
+const orders = require('./routes/orders');
+const payments = require('./routes/payment');
+const analytics = require('./routes/analyatics');
 
 dotenv.config();
 connectDB();
 const app = express();
+const isProduction = process.env.NODE_ENV === 'production';
+
 app.use(cors({
   origin: '*',
   credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.get('/', (req, res) => {
-    res.send("WereValut Backend is working...");
-});
+
 app.use('/api/auth', userRoutes);
 app.use('/api/products', products);
 app.use('/api/orders', orders);
 app.use('/api/payments', payments);
-app.use('/api/analyatics', analyatics);
+app.use('/api/analytics', analytics);
+app.use('/api/analyatics', analytics);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/build')));
-  
-  app.use((req, res) => {
-    res.sendFile(path.resolve(__dirname, '../frontend/build/index.html'));
+app.use('/api', (req, res) => {
+  res.status(404).json({ message: 'API endpoint not found' });
+});
+
+if (isProduction) {
+  const frontendDistPath = path.resolve(__dirname, '../frontend/dist');
+  app.use(express.static(frontendDistPath));
+  app.get('/{*path}', (req, res, next) => {
+    res.sendFile(path.join(frontendDistPath, 'index.html'), (error) => {
+      if (error) next(error);
+    });
   });
 } else {
   app.get('/', (req, res) => {
-    res.send('WereValut API is running in Development mode...');
+    res.send('WereValut Backend is working...');
   });
 }
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`server is running on ${PORT
-
-    }`);
+  console.log(`server is running on ${PORT}`);
 });
