@@ -18,7 +18,7 @@ const ProductDetail = () => {
       setProduct(null);
       setSelectedPhotoIndex(0);
       try {
-        const res = await fetch(`${API_BASE_URL}/api/products`);
+        const res = await fetch(`${API_BASE_URL}/api/products/${id}`);
         const data = await res.json();
         if (!res.ok) throw new Error('Could not load product');
 

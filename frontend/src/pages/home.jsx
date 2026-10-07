@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/Product';
+import { API_BASE_URL } from '../config';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -8,11 +9,12 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('/api/products');
+        const res = await fetch(`${API_BASE_URL}/api/products`);
+        if (!res.ok) throw new Error(`Could not load products (${res.status})`);
         const data = await res.json();
-        setProducts(data.slice(0, 4)); // Featured products
+        setProducts(Array.isArray(data) ? data.slice(0, 4) : []);
       } catch (error) {
-        console.error(error);
+        console.error('Could not load featured products:', error);
       } finally {
         setLoading(false);
       }

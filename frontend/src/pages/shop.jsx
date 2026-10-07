@@ -12,10 +12,11 @@ const Shop = () => {
     const fetchProducts = async () => {
       try {
         const res = await fetch(`${API_BASE_URL}/api/products`);
-const data = await res.json();
-        setProducts(data);
+        if (!res.ok) throw new Error(`Could not load products (${res.status})`);
+        const data = await res.json();
+        setProducts(Array.isArray(data) ? data : []);
       } catch (error) {
-        console.error(error);
+        console.error('Could not load products:', error);
       } finally {
         setLoading(false);
       }

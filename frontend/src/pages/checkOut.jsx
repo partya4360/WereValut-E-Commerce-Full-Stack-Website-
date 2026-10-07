@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { clearCart } from '../redux/cartSlice';
+import { API_BASE_URL } from '../config';
 
 const Checkout = () => {
   const { user } = useContext(AuthContext);
@@ -40,7 +41,7 @@ const Checkout = () => {
         country: address.country
       };
 
-      const saveOrderRes = await fetch('/api/orders', {
+      const saveOrderRes = await fetch(`${API_BASE_URL}/api/orders`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/auth');
 const products = require('./routes/product');
@@ -13,13 +14,23 @@ dotenv.config();
 connectDB();
 const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
+const frontendOrigins = (process.env.FRONTEND_URL || '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 app.use(cors({
-  origin: '*',
-  credentials: true
+  origin: frontendOrigins.length ? frontendOrigins : '*'
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.get('/api/health', (req, res) => {
+  const databaseConnected = mongoose.connection.readyState === 1;
+  res.status(databaseConnected ? 200 : 503).json({
+    status: databaseConnected ? 'ok' : 'database unavailable'
+  });
+});
 
 app.use('/api/auth', userRoutes);
 app.use('/api/products', products);

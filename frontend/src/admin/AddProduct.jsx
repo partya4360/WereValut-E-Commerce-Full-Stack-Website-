@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import '../styles/admin-product.css';
+import { API_BASE_URL } from '../config';
 
 const AddProduct = () => {
   const { user } = useContext(AuthContext);
@@ -34,7 +35,7 @@ const AddProduct = () => {
     galleryImages.forEach((galleryImage) => data.append('galleryImages', galleryImage));
 
     try {
-      const res = await fetch('/api/products', {
+      const res = await fetch(`${API_BASE_URL}/api/products`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${user.token}` },
         body: data

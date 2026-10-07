@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/admin-product.css';
+import { API_BASE_URL } from '../config';
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -17,7 +18,7 @@ const EditProduct = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const res = await fetch(`/api/products/${id}`);
+      const res = await fetch(`${API_BASE_URL}/api/products/${id}`);
       const data = await res.json();
       setFormData({ name: data.name, description: data.description, price: data.price, category: data.category, stock: data.stock });
       setGalleryImages(data.galleryImages || []);
@@ -37,7 +38,7 @@ const EditProduct = () => {
     if (image) data.append('image', image);
     galleryFiles.forEach((galleryImage) => data.append('galleryImages', galleryImage));
 
-    const res = await fetch(`/api/products/${id}`, {
+    const res = await fetch(`${API_BASE_URL}/api/products/${id}`, {
       method: 'PUT',
       headers: { Authorization: `Bearer ${user.token}` },
       body: data
@@ -54,7 +55,7 @@ const EditProduct = () => {
 
     setDeletingImageId(imageId);
     try {
-      const res = await fetch(`/api/products/${id}/gallery/${imageId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/products/${id}/gallery/${imageId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${user.token}` }
       });

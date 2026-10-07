@@ -8,6 +8,12 @@ build and the API from the same origin. The frontend uses same-origin API
 requests by default. Set `VITE_API_BASE_URL` before building only when the API
 is hosted on a different origin.
 
+For separate Render web services, set `VITE_API_BASE_URL` on the frontend
+service to the backend service URL (for example, `https://your-api.onrender.com`)
+and redeploy the frontend. Set `FRONTEND_URL` on the backend service to the
+frontend service URL. The API base URL is shared by storefront and admin API
+requests.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
