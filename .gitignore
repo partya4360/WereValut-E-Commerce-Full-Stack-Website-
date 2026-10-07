@@ -1,0 +1,28 @@
+# Local environment files and secrets (All subfolders included)
+.env
+.env.*
+**/.env
+!.env.example
+!**/.env.example
+
+# Dependencies (Root and Subfolders)
+node_modules/
+**/node_modules/
+
+# Production builds
+dist/
+build/
+coverage/
+
+# Uploaded files and logs
+Backend/uploads/
+**/uploads/
+logs/
+*.log
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+!.vscode/extensions.json
+.idea/

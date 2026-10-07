@@ -1,0 +1,85 @@
+.admin-product-shell {
+  width: calc(100% - 32px);
+  max-width: 720px;
+  margin: 32px auto;
+  padding: clamp(18px, 4vw, 40px);
+  background: #18181b;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.admin-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-photo-section {
+  min-width: 0;
+  padding: 16px;
+  border: 1px dashed #f97316;
+  border-radius: 8px;
+}
+
+.admin-photo-section > label,
+.admin-photo-section > h3 {
+  display: block;
+  margin-bottom: 12px;
+  color: #d4d4d8;
+}
+
+.admin-file-input {
+  width: 100%;
+  max-width: 100%;
+  color: #fff;
+}
+
+.admin-selected-count {
+  margin-top: 10px;
+  color: #a1a1aa;
+}
+
+.admin-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 12px;
+}
+
+.admin-gallery-card {
+  min-width: 0;
+  padding: 8px;
+  background: #09090b;
+  border: 1px solid #27272a;
+  border-radius: 6px;
+}
+
+.admin-gallery-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: #f4f4f5;
+  border-radius: 4px;
+}
+
+.admin-gallery-delete {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  color: #fecaca;
+  background: #3f1515;
+  border: 1px solid #7f1d1d;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.admin-gallery-delete:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+@media (max-width: 420px) {
+  .admin-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
