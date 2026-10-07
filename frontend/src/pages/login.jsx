@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { API_BASE_URL } from '../config';
 import '../styles/auth.css';
 
 const Login = () => {
@@ -11,21 +12,25 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
+
       const data = await res.json();
+
       if (res.ok) {
         login(data);
         navigate('/');
       } else {
-        alert(data.message);
+        alert(data.message || 'Login failed');
       }
     } catch (error) {
-      console.error(error);
+      console.error('Login error:', error);
+      alert('Something went wrong while logging in.');
     }
   };
 
