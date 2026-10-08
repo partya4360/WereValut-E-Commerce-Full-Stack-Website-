@@ -20,7 +20,9 @@ const frontendOrigins = (process.env.FRONTEND_URL || '')
   .filter(Boolean);
 
 app.use(cors({
-  origin: frontendOrigins.length ? frontendOrigins : '*'
+  origin:['https://werevalut-e-commerce-full-stack-website.onrender.com', 'http://localhost:5173' ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
