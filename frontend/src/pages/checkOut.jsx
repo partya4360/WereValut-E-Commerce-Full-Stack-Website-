@@ -41,7 +41,7 @@ const Checkout = () => {
         country: address.country
       };
 
-      const saveOrderRes = await fetch(`${API_BASE_URL}/api/orders`, {
+      const saveOrderRes = await fetch(`https://werevalut-e-commerce-full-stack-website.onrender.com/api/orders`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

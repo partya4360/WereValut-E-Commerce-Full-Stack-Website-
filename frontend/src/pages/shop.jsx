@@ -11,7 +11,7 @@ const Shop = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/products`);
+        const res = await fetch(`https://werevalut-e-commerce-full-stack-website.onrender.com/api/products`);
         if (!res.ok) throw new Error(`Could not load products (${res.status})`);
         const data = await res.json();
         setProducts(Array.isArray(data) ? data : []);

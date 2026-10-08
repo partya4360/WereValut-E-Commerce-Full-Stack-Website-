@@ -16,7 +16,7 @@ const Profile = () => {
     }
     const fetchMyOrders = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/orders/myorders`, {
+        const res = await fetch(`https://werevalut-e-commerce-full-stack-website.onrender.com/api/orders/myorders`, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         const data = await res.json();
